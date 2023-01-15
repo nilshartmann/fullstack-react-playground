@@ -1,0 +1,2 @@
+- this is not a public visible route, as it does not contain a `page` file
+- https://beta.nextjs.org/docs/routing/defining-routes#creating-routes

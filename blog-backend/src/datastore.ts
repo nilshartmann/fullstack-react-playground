@@ -51,6 +51,17 @@ export default function createDataStore() {
       }
 
       return commentsForPost(postId);
-    }
+    },
+
+    getTags(): Record<string, number> {
+      return Object.values(posts)
+        .flatMap((p) => p.tags)
+        .filter((tag) => !!tag) // filter out empty tags
+        .reduce((tags, tag) => {
+          const count = tags[tag] || 0;
+          tags[tag] = count + 1;
+          return tags;
+        }, {} as Record<string, number>);
+    },
   };
 }
