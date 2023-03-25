@@ -7,7 +7,6 @@ type PostProps = {
   post: IBlogPost;
 };
 export default function Post({ post }: PostProps) {
-  console.log("POST ", post);
   const date = dateTimeString(post.date);
   const body = marked.parse(post.body);
 

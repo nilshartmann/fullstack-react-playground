@@ -2,14 +2,14 @@ import PageHeader from "@/app/components/PageHeader";
 import ButtonBar from "@/app/components/ButtonBar";
 import PostList from "@/app/(blog)/PostList";
 import TagCloud from "@/app/(blog)/TagCloud";
-import { Suspense } from "react";
-import LoadingIndicator from "@/app/components/LoadingIndicator";
 import OrderByButton from "@/app/(blog)/OrderByButton";
 import { ORDER_BY_SEARCH_PARAM } from "@/types";
+import { cookies } from "next/headers";
 type PostListPageProps = {
   searchParams?: { [key: string]: string };
 };
 export default function PostListPage({ searchParams }: PostListPageProps) {
+  const x = cookies(); // workaround to make this component dynamic rendered
   const orderBy = searchParams?.[ORDER_BY_SEARCH_PARAM] || "";
   return (
     <div className={"PostListPage"}>
@@ -26,11 +26,8 @@ export default function PostListPage({ searchParams }: PostListPageProps) {
           <PostList orderBy={orderBy} />
         </div>
         <aside className={"Sidebar"}>
-          {/*  SERVER COMPONENT */}
-          <Suspense fallback={<LoadingIndicator />}>
-            {/* @ts-expect-error Server Component */}
-            <TagCloud />
-          </Suspense>
+          {/* @ts-expect-error Server Component */}
+          <TagCloud />
         </aside>
       </div>
     </div>

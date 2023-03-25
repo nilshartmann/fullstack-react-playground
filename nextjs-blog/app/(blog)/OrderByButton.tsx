@@ -10,6 +10,8 @@ export default function OrderByButton({ orderBy }: OrderByButtonProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  console.log("OrderByButton, orderBy", orderBy);
+
   // const { openHome, currentLocation } = useBlogNavigation();
   const currentOrderBy = searchParams.get(ORDER_BY_SEARCH_PARAM) || "date_desc";
 
@@ -17,7 +19,9 @@ export default function OrderByButton({ orderBy }: OrderByButtonProps) {
 
   function reorder() {
     const params = new URLSearchParams({ order_by: orderBy });
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, {
+      forceOptimisticNavigation: false,
+    });
   }
 
   return (

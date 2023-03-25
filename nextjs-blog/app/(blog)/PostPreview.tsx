@@ -1,6 +1,7 @@
 import { IBlogPost } from "@/types";
 import { dateTimeString } from "@/app/components/date-formatter";
 import Link from "next/link";
+import { CommentEditor } from "@/app/(blog)/CommentEditor";
 
 function postAbstract({ body }: IBlogPost) {
   return body.length > 150 ? body.substring(0, 150) + "..." : body;
@@ -20,7 +21,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
         <p>{postAbstract(post)}</p>
       </div>
       <NewestComment post={post} />
-      {/*<CommentEditor post={post} />*/}
+      <CommentEditor post={post} />
     </article>
   );
 }

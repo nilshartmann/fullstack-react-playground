@@ -1,5 +1,5 @@
 import { IBlogPost, PostsOrderBy } from "@/types";
-import PostPreview from "@/app/components/PostPreview";
+import PostPreview from "@/app/(blog)/PostPreview";
 import { apiUrl } from "@/app/config";
 import { delayPostList, delayTagCloud } from "@/app/demo-config";
 

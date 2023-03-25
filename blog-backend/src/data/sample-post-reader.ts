@@ -1,13 +1,14 @@
-import {BlogPostData, IUser} from "../types";
+import { BlogPostData, IUser } from "../types";
 
 const fs = require("fs");
 
 export default function readPosts() {
-  const posts: Record<string, BlogPostData> = {}
-  const newPost = () => ({
-    id: `${Object.keys(posts).length + 1}`,
-    body: "",
-  } as Partial<BlogPostData>);
+  const posts: Record<string, BlogPostData> = {};
+  const newPost = () =>
+    ({
+      id: `${Object.keys(posts).length + 1}`,
+      body: "",
+    } as Partial<BlogPostData>);
   let currentPost = newPost();
 
   const storeCurrentPost = () => {
@@ -23,7 +24,7 @@ export default function readPosts() {
     const lines = data.split(/\r?\n/);
 
     // print all lines
-    lines.forEach( (line: string) => {
+    lines.forEach((line: string) => {
       line = line.trim();
       if (line.startsWith("---")) {
         storeCurrentPost();
@@ -34,7 +35,11 @@ export default function readPosts() {
       } else if (line.startsWith("user:")) {
         currentPost.userId = line.substring("user:".length).trim();
       } else if (line.startsWith("tags:")) {
-        currentPost.tags = line.substring("tags:".length).trim().split(",").map(t => t.trim());
+        currentPost.tags = line
+          .substring("tags:".length)
+          .trim()
+          .split(",")
+          .map((t) => t.trim());
       } else if (line === "") {
         currentPost.body = currentPost.body + "\n";
       } else {
@@ -47,8 +52,5 @@ export default function readPosts() {
     console.error(err);
   }
 
-
   return posts;
 }
-
-
