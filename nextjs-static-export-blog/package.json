@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "backend": "cd ../blog-backend && pnpm start",
+    "serve": "pnpm dlx serve -l 3030 out/",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
