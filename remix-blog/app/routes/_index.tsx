@@ -25,7 +25,7 @@ export default function PostListPage() {
       <PageHeader
         actionButton={<LinkButton to={"/add"}>Create new Post</LinkButton>}
       >
-        Blog Posts
+        Blog Example Remix
       </PageHeader>
       <TwoColumnLayout>
         <Main>
