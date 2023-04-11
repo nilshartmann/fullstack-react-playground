@@ -14,9 +14,26 @@ const app: Express = express();
 app.set("etag", false);
 app.use(express.json());
 
-app.use((req, _res, next) => {
-  if (req.query.slow !== undefined || slowEnabled) {
+let requestCounter = 0;
+
+app.use((req, res, next) => {
+  const meta: Record<string, string | number> = {};
+  ++requestCounter;
+  meta.path = req.path;
+  meta.requestId = `${Date.now()}-${requestCounter}`;
+  if (req.query.cacheMaxAge !== undefined) {
+    console.log(
+      `Set Cache-control max-age to '${req.query.cacheMaxAge}' for request '${req.path}'`
+    );
+    res.set("Cache-control", `public, max-age=${req.query.cacheMaxAge}`);
+    meta.cacheMaxAge = "" + req.query.cacheMaxAge;
+  }
+  meta.fetchedAt = Date.now();
+  res.locals.meta = meta;
+
+  if (req.query.slow !== undefined && req.query.slow !== "false") {
     const timeout = 1200;
+    meta.timeout = timeout;
     console.log(`Slow down ${timeout}ms`);
     setTimeout(next, timeout);
   } else {
@@ -32,7 +49,10 @@ app.get("/posts", (req: Request, res: Response) => {
   const orderBy = req.query["order_by"];
   const order =
     orderBy === "date_asc" ? orderByDateOldestFirst : orderByDateNewestFirst;
-  res.json(dataStore.getAllPosts(order));
+  res.json({
+    data: dataStore.getAllPosts(order),
+    meta: res.locals.meta,
+  });
 });
 
 // Return Post with specified id (or 404)
@@ -43,7 +63,14 @@ app.get("/posts/:id", (req, res) => {
     return res.status(404).json({ error: `Post '${req.params.id}' not found` });
   }
 
-  return res.status(200).json(post);
+  return res.status(200).json({
+    data: post,
+    meta: {
+      timeout: res.locals.timeout,
+      fetchedAt: Date.now(),
+      requestId: res.locals.requestId,
+    },
+  });
 });
 
 // Return all comments for post or empty array (or 404 if posts not found)
@@ -54,7 +81,10 @@ app.get("/posts/:id/comments", (req, res) => {
     return res.status(404).json({ error: `Post '${req.params.id}' not found` });
   }
 
-  return res.status(200).json(post);
+  return res.status(200).json({
+    data: post,
+    meta: res.locals.meta,
+  });
 });
 
 app.get("/tags", (req, res) => {

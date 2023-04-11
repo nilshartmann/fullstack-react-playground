@@ -1,3 +1,21 @@
+export type IResponseMetaData = {
+  fetchedAt: string
+  timeout?: string,
+  cacheMaxAge?: string,
+  requestId: string
+  path :string;
+}
+
+export type IPostsResponse = {
+  data: IBlogPost[],
+  meta: IResponseMetaData
+}
+
+export type IBlogPostResponse = {
+  data: IBlogPost,
+  meta: IResponseMetaData
+}
+
 export type IBlogPost = {
   id: string;
   userId: string;

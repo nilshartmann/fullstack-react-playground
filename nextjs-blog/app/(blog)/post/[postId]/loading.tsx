@@ -1,5 +1,5 @@
 import LoadingIndicator from "@/app/components/LoadingIndicator";
 
 export default function Loading() {
-  return <LoadingIndicator />;
+  return <LoadingIndicator >Loading Post</LoadingIndicator>;
 }

@@ -3,8 +3,10 @@ import { tagCloud as createTagCloud } from "tag-cloud";
 import { delayTagCloud } from "@/app/demo-config";
 import { apiUrl } from "@/app/config"; // 4kb lib which is not transferred to server
 
+
+
 async function fetchTagCloud(): Promise<ITags> {
-  const response = await fetch(apiUrl("/tags", delayTagCloud));
+  const response = await fetch(apiUrl("/tags", {}));
   const posts = await response.json();
 
   return posts;

@@ -10,10 +10,8 @@ export default function OrderByButton({ orderBy }: OrderByButtonProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  console.log("OrderByButton, orderBy", orderBy);
-
   // const { openHome, currentLocation } = useBlogNavigation();
-  const currentOrderBy = searchParams.get(ORDER_BY_SEARCH_PARAM) || "date_desc";
+  const currentOrderBy = searchParams?.get(ORDER_BY_SEARCH_PARAM) || "date_desc";
 
   const label = orderBy === "date_desc" ? "Desc" : "Asc";
 

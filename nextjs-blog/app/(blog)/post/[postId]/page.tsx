@@ -1,4 +1,4 @@
-import { IBlogPost, IComment } from "@/types";
+import {IBlogPost, IBlogPostResponse, IComment} from "@/types";
 import { apiUrl } from "@/app/config";
 import {
   delayPostComments,
@@ -15,8 +15,12 @@ export async function generateStaticParams() {
   return [{ postId: "1" }, { postId: "2" }];
 }
 
-async function fetchPost(postId: string): Promise<IBlogPost> {
-  const response = await fetch(apiUrl(`/posts/${postId}`, delayPostPage));
+async function fetchPost(postId: string): Promise<IBlogPostResponse> {
+  const response = await fetch(apiUrl(`/posts/${postId}`, {}), {
+    next: {
+      revalidate: 1
+    }
+  });
   const posts = await response.json();
 
   return posts;
@@ -24,9 +28,10 @@ async function fetchPost(postId: string): Promise<IBlogPost> {
 
 async function fetchComments(postId: string): Promise<IComment[]> {
   const response = await fetch(
-    apiUrl(`/posts/${postId}/comments`, delayPostComments)
+    apiUrl(`/posts/${postId}/comments`, {})
   );
   const comments = await response.json();
+  console.log("COMMENTS FIELDS", Object.keys(comments))
 
   return comments;
 }
@@ -39,7 +44,7 @@ type PostPageProps = {
 };
 export default async function PostPage({ params }: PostPageProps) {
   const postPromise = fetchPost(params.postId);
-  const comments = fetchComments(params.postId);
+  // const comments = fetchComments(params.postId);
 
   // https://beta.nextjs.org/docs/data-fetching/fetching#parallel-data-fetching
   // We want to render posts as soon as we have them.
@@ -49,13 +54,14 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <>
-      <Post post={post} />
-      <Suspense
-        fallback={<LoadingIndicator>Loading Comments</LoadingIndicator>}
-      >
-        {/* @ts-expect-error Server Component */}
-        <PostComments comments={comments} />
-      </Suspense>
+      <div>
+        <p>Data fetched at: {post.meta.fetchedAt} (timeout: {post.meta.timeout || "none"})</p>
+      </div>
+      <Post post={post.data} />
+
     </>
   );
 }
+
+// {/* @ts-expect-error Server Component */}
+// {/*<PostComments comments={comments} />*/}
