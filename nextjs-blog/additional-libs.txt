@@ -1,0 +1,3 @@
+pnpm i -D prettier
+pnpm i @types/marked@^4.0.8 format-duration@^3.0.2 marked@^4.2.12 tag-cloud@^1.3.3
+
