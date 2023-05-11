@@ -17,10 +17,11 @@ app.use(express.json());
 let requestCounter = 0;
 
 app.use((req, res, next) => {
-  const meta: Record<string, string | number> = {};
+  console.log(">>> Received Request to ", req.path);
+  const meta: Record<string, string | number | Date> = {};
   ++requestCounter;
   meta.path = req.path;
-  meta.requestId = `${Date.now()}-${requestCounter}`;
+  meta.requestId = `${requestCounter}`;
   if (req.query.cacheMaxAge !== undefined) {
     console.log(
       `Set Cache-control max-age to '${req.query.cacheMaxAge}' for request '${req.path}'`
@@ -28,7 +29,11 @@ app.use((req, res, next) => {
     res.set("Cache-control", `public, max-age=${req.query.cacheMaxAge}`);
     meta.cacheMaxAge = "" + req.query.cacheMaxAge;
   }
-  meta.fetchedAt = Date.now();
+  const sentAtHeader = req.query["blogexample-sent-at"];
+  meta.sentAt = typeof sentAtHeader === "string" ? sentAtHeader : "";
+
+  meta.receivedAt = new Date();
+  console.log("RECEIVED AT ", meta.receivedAt);
   res.locals.meta = meta;
 
   if (req.query.slow !== undefined && req.query.slow !== "false") {
@@ -65,11 +70,7 @@ app.get("/posts/:id", (req, res) => {
 
   return res.status(200).json({
     data: post,
-    meta: {
-      timeout: res.locals.timeout,
-      fetchedAt: Date.now(),
-      requestId: res.locals.requestId,
-    },
+    meta: res.locals.meta,
   });
 });
 

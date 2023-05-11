@@ -1,5 +1,21 @@
-import {IResponseMetaData} from "@/types";
+import { IResponseMetaData } from "@/types";
+import { timeString } from "@/app/components/date-formatter";
 
-export default function MetaFetchData({meta}: {meta: IResponseMetaData}) {
-    return <p>Request to {meta.path} id: {meta.requestId} (timeout: {meta.timeout || "none"}, cache-max-age: {meta.cacheMaxAge||"none"})</p>
+export default function MetaFetchData({
+  meta,
+  children,
+}: {
+  meta: IResponseMetaData;
+  children?: React.ReactNode;
+}) {
+  const sentAt = meta.sentAt ? `sent at ${timeString(meta.sentAt)} and` : "";
+
+  return (
+    <div className={"MetaFetchData"}>
+      Request to <code>{meta.path}</code> id: {meta.requestId}, {sentAt}{" "}
+      received at: {timeString(meta.receivedAt)}
+      {!!meta.timeout && ` (paused ${meta.timeout}ms)`}
+      {children}
+    </div>
+  );
 }

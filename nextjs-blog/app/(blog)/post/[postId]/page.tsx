@@ -1,4 +1,4 @@
-import {IBlogPost, IBlogPostResponse, IComment} from "@/types";
+import { IBlogPost, IBlogPostResponse, IComment } from "@/types";
 import { apiUrl } from "@/app/config";
 import {
   delayPostComments,
@@ -10,28 +10,25 @@ import LoadingIndicator from "@/app/components/LoadingIndicator";
 import { Suspense } from "react";
 import Post from "@/app/(blog)/post/[postId]/Post";
 import PostComments from "@/app/(blog)/post/[postId]/PostComments";
+import MetaFetchData from "@/app/components/MetaFetchData";
 
 export async function generateStaticParams() {
   return [{ postId: "1" }, { postId: "2" }];
 }
 
 async function fetchPost(postId: string): Promise<IBlogPostResponse> {
-  const response = await fetch(apiUrl(`/posts/${postId}`, {}), {
-    next: {
-      revalidate: 1
-    }
-  });
+  const response = await fetch(
+    apiUrl(`/posts/${postId}`, { slow: delayPostPage })
+  );
   const posts = await response.json();
 
   return posts;
 }
 
 async function fetchComments(postId: string): Promise<IComment[]> {
-  const response = await fetch(
-    apiUrl(`/posts/${postId}/comments`, {})
-  );
+  const response = await fetch(apiUrl(`/posts/${postId}/comments`, {}));
   const comments = await response.json();
-  console.log("COMMENTS FIELDS", Object.keys(comments))
+  console.log("COMMENTS FIELDS", Object.keys(comments));
 
   return comments;
 }
@@ -54,11 +51,9 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <>
-      <div>
-        <p>Data fetched at: {post.meta.fetchedAt} (timeout: {post.meta.timeout || "none"})</p>
-      </div>
-      <Post post={post.data} />
-
+      <MetaFetchData meta={post.meta}>
+        <Post post={post.data} />
+      </MetaFetchData>
     </>
   );
 }

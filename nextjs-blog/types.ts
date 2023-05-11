@@ -1,20 +1,23 @@
 export type IResponseMetaData = {
-  fetchedAt: string
-  timeout?: string,
-  cacheMaxAge?: string,
-  requestId: string
-  path :string;
-}
+  /** when did the CLIENT sent the request? */
+  sentAt: string;
+  /** when did the SERVER receive the request? */
+  receivedAt: string;
+  timeout?: string;
+  cacheMaxAge?: string;
+  requestId: string;
+  path: string;
+};
 
 export type IPostsResponse = {
-  data: IBlogPost[],
-  meta: IResponseMetaData
-}
+  data: IBlogPost[];
+  meta: IResponseMetaData;
+};
 
 export type IBlogPostResponse = {
-  data: IBlogPost,
-  meta: IResponseMetaData
-}
+  data: IBlogPost;
+  meta: IResponseMetaData;
+};
 
 export type IBlogPost = {
   id: string;

@@ -347,3 +347,15 @@ article h1 {
   }
 }
 
+.MetaFetchData {
+  margin-top: 0.5rem;
+  border: 1px dashed darkgray;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.25rem;
+  color: #595756;
+}
+
+.MetaFetchData code {
+  font-family: "Courier New", "Couier", "monospace", "sans-serif";
+}
+

@@ -18,7 +18,6 @@ export default function PostListPage({ searchParams }: PostListPageProps) {
     <div className={"PostListPage"}>
       <PageHeader button={<button>New Blog Post</button>}>
         Next.JS Blog Example
-        <Link href={"/user"}>User</Link>
       </PageHeader>
       <div className={"Page"}>
         <div className={"Main"}>

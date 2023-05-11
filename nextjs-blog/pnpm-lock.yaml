@@ -10,6 +10,7 @@ specifiers:
   format-duration: ^3.0.2
   marked: ^4.2.12
   next: 13.3.0
+  prettier: ^2.8.7
   react: 18.2.0
   react-dom: 18.2.0
   tag-cloud: ^1.3.3
@@ -29,6 +30,9 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   tag-cloud: 1.3.3
   typescript: 4.9.4
+
+devDependencies:
+  prettier: 2.8.7
 
 packages:
 
@@ -1750,6 +1754,12 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
     dev: false
+
+  /prettier/2.8.7:
+    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
 
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
