@@ -3,10 +3,11 @@ import PostPreview from "@/app/(blog)/PostPreview";
 import { apiUrl } from "@/app/config";
 import { delayPostList } from "@/app/demo-config";
 import MetaFetchData from "@/app/components/MetaFetchData";
+import { blogFetch } from "@/app/blog-fetch";
 
 async function fetchPosts(orderBy: PostsOrderBy): Promise<IPostsResponse> {
-  const response = await fetch(
-    apiUrl("/posts") // , { order_by: orderBy, slow: delayPostList })
+  const response = await blogFetch(
+    apiUrl("/posts", { order_by: orderBy, slow: delayPostList })
   );
 
   return response.json();

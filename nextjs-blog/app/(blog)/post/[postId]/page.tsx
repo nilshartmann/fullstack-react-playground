@@ -11,13 +11,14 @@ import { Suspense } from "react";
 import Post from "@/app/(blog)/post/[postId]/Post";
 import PostComments from "@/app/(blog)/post/[postId]/PostComments";
 import MetaFetchData from "@/app/components/MetaFetchData";
+import { blogFetch } from "@/app/blog-fetch";
 
 export async function generateStaticParams() {
   return [{ postId: "1" }, { postId: "2" }];
 }
 
 async function fetchPost(postId: string): Promise<IBlogPostResponse> {
-  const response = await fetch(
+  const response = await blogFetch(
     apiUrl(`/posts/${postId}`, { slow: delayPostPage })
   );
   const posts = await response.json();
@@ -26,7 +27,7 @@ async function fetchPost(postId: string): Promise<IBlogPostResponse> {
 }
 
 async function fetchComments(postId: string): Promise<IComment[]> {
-  const response = await fetch(apiUrl(`/posts/${postId}/comments`, {}));
+  const response = await blogFetch(apiUrl(`/posts/${postId}/comments`, {}));
   const comments = await response.json();
   console.log("COMMENTS FIELDS", Object.keys(comments));
 

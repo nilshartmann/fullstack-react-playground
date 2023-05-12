@@ -4,15 +4,17 @@ import PostList from "@/app/(blog)/PostList";
 import TagCloud from "@/app/(blog)/TagCloud";
 import OrderByButton from "@/app/(blog)/OrderByButton";
 import { ORDER_BY_SEARCH_PARAM } from "@/types";
-import { cookies } from "next/headers";
-import Link from "next/link";
+import timeString from "@/app/components/time-string";
 type PostListPageProps = {
   searchParams?: { [key: string]: string };
 };
-export const revalidate = 2;
+
+// https://nextjs.org/docs/app/building-your-application/data-fetching/caching#segment-level-caching
+// revalidate every 2 seconds
+// export const revalidate = 2;
+
 export default function PostListPage({ searchParams }: PostListPageProps) {
-  console.log("Post List Page!", Date.now());
-  const x = cookies(); // workaround to make this component dynamic rendered
+  console.log("Post List Page invoked", timeString(Date.now()), searchParams);
   const orderBy = searchParams?.[ORDER_BY_SEARCH_PARAM] || "";
   return (
     <div className={"PostListPage"}>
@@ -25,11 +27,11 @@ export default function PostListPage({ searchParams }: PostListPageProps) {
             <OrderByButton orderBy={"date_desc"} />
             <OrderByButton orderBy={"date_asc"} />
           </ButtonBar>
-          {/* @ts-expect-error Server Component */}
+          {/* @ts-expect-error https://nextjs.org/docs/app/building-your-application/configuring/typescript#async-server-component-typescript-error */}
           <PostList orderBy={orderBy} />
         </div>
         <aside className={"Sidebar"}>
-          {/* @ts-expect-error Server Component */}
+          {/* @ts-expect-error Server Component https://nextjs.org/docs/app/building-your-application/configuring/typescript#async-server-component-typescript-error */}
           <TagCloud />
         </aside>
       </div>

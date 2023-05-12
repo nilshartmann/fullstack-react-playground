@@ -1,9 +1,5 @@
 type SP = Record<string, string | number | boolean | undefined>;
-export function apiUrl(
-  path: string,
-  searchParams?: SP,
-  slowdown?: boolean
-): string;
+
 export function apiUrl(path: string, searchParams?: SP): string {
   const _searchParams: Record<string, string> = {};
 
@@ -18,11 +14,9 @@ export function apiUrl(path: string, searchParams?: SP): string {
     }
   });
 
-  // _searchParams["blogexample-sent-at"] = new Date().toISOString();
+  const p = Object.keys(_searchParams).length
+    ? `?${new URLSearchParams(_searchParams).toString()}`
+    : "";
 
-  // const p = Object.keys(_searchParams).length
-  //   ? `?${new URLSearchParams(_searchParams).toString()}`
-  //   : "";
-
-  return `http://localhost:7000${path}`;
+  return `http://localhost:7000${path}${p}`;
 }

@@ -1,5 +1,10 @@
 import "./globals.css";
 
+export const metadata = {
+  title: "Blog Example!",
+  description: "Blog Example App!",
+};
+
 export default function RootLayout({
   children,
 }: {
