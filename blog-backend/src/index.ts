@@ -34,6 +34,8 @@ app.use((req, res, next) => {
 
   meta.receivedAt = new Date();
   console.log("RECEIVED AT ", meta.receivedAt);
+  res.set("X-HALLO-WELT", "HUHU");
+  res.set("x-blog-api-request-id", meta.requestId);
   res.locals.meta = meta;
 
   if (req.query.slow !== undefined && req.query.slow !== "false") {

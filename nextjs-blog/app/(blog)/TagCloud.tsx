@@ -1,7 +1,8 @@
 import { ITags } from "@/types";
-import { tagCloud as createTagCloud } from "tag-cloud";
+import { tagCloud as createTagCloud } from "tag-cloud"; // 4kb lib which is not transferred to server
 import { apiUrl } from "@/app/config";
-import { blogFetch } from "@/app/blog-fetch"; // 4kb lib which is not transferred to server
+import { blogFetch } from "@/app/blog-fetch";
+import { componentLog } from "@/app/component-log";
 
 async function fetchTagCloud(): Promise<ITags> {
   const response = await blogFetch(apiUrl("/tags", {}));
@@ -11,6 +12,7 @@ async function fetchTagCloud(): Promise<ITags> {
 }
 
 export default async function TagCloud() {
+  componentLog("TagCloud");
   const tags = await fetchTagCloud();
 
   const tc = createTagCloud(

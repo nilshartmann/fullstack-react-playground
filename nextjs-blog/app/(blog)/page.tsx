@@ -5,6 +5,7 @@ import TagCloud from "@/app/(blog)/TagCloud";
 import OrderByButton from "@/app/(blog)/OrderByButton";
 import { ORDER_BY_SEARCH_PARAM } from "@/types";
 import timeString from "@/app/components/time-string";
+import { componentLog } from "@/app/component-log";
 type PostListPageProps = {
   searchParams?: { [key: string]: string };
 };
@@ -14,7 +15,7 @@ type PostListPageProps = {
 // export const revalidate = 2;
 
 export default function PostListPage({ searchParams }: PostListPageProps) {
-  console.log("Post List Page invoked", timeString(Date.now()), searchParams);
+  componentLog("PostListPage", { searchParams });
   const orderBy = searchParams?.[ORDER_BY_SEARCH_PARAM] || "";
   return (
     <div className={"PostListPage"}>

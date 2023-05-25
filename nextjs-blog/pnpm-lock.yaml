@@ -5,6 +5,7 @@ specifiers:
   '@types/node': 20.1.2
   '@types/react': 18.2.6
   '@types/react-dom': 18.2.4
+  chalk: ^5.2.0
   eslint: 8.40.0
   eslint-config-next: 13.4.1
   format-duration: ^3.0.2
@@ -21,6 +22,7 @@ dependencies:
   '@types/node': 20.1.2
   '@types/react': 18.2.6
   '@types/react-dom': 18.2.4
+  chalk: 5.2.0
   eslint: 8.40.0
   eslint-config-next: 13.4.1_3qfatcekpgbllh6uk5ivyhkbxq
   format-duration: 3.0.2
@@ -514,6 +516,11 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+    dev: false
+
+  /chalk/5.2.0:
+    resolution: {integrity: sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
     dev: false
 
   /client-only/0.0.1:
