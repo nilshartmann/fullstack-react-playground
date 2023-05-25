@@ -10,12 +10,8 @@ export function dateTimeString(isoString: string | undefined) {
   }).format(date);
 }
 
-export function timeString(isoString: string | number) {
-  if (!isoString) {
-    return "";
-  }
-
-  const date = new Date(isoString);
+export function timeString(isoString?: string | number) {
+  const date = new Date(isoString ?? Date.now());
 
   return new Intl.DateTimeFormat("de-DE", {
     timeStyle: "medium",

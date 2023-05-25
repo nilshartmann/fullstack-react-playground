@@ -30,7 +30,6 @@ type PostListProps = {
 };
 
 export default async function PostList({ orderBy }: PostListProps) {
-  componentLog("PostList", { orderBy });
   const blogPosts = await fetchPosts(orderBy);
 
   return (

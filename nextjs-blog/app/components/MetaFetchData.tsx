@@ -13,7 +13,7 @@ export default function MetaFetchData({
   return (
     <div className={"MetaFetchData"}>
       Request to <code>{meta.path}</code> id: {meta.requestId}, {sentAt}{" "}
-      received at: {timeString(meta.receivedAt)}
+      rendered at: {timeString()}
       {!!meta.timeout && ` (paused ${meta.timeout}ms)`}
       {children}
     </div>
