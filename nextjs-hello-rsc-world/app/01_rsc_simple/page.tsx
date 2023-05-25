@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { getArticles, OrderBy } from "@/app/articles";
-import ArticleList from "@/app/01_rsc_simple/ArticleList";
+import ArticleList from "@/app/ArticleList";
 import { componentLog } from "@/app/logger";
 import { redirect } from "next/navigation";
 

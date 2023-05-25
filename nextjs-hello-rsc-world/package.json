@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "next dev -p 8090",
+    "build": "export B_TS=`date +%Y_%m_%d_%H_%M_%S` && next build && echo BUILD_ID: ${B_TS} ",
+    "start": "next start -p 7200",
     "lint": "next lint"
   },
   "dependencies": {
