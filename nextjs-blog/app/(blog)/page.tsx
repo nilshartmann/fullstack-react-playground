@@ -6,6 +6,8 @@ import OrderByButton from "@/app/(blog)/OrderByButton";
 import { ORDER_BY_SEARCH_PARAM } from "@/types";
 import timeString from "@/app/components/time-string";
 import { componentLog } from "@/app/component-log";
+import Link from "next/link";
+import AppLink from "@/app/components/AppLink";
 type PostListPageProps = {
   searchParams?: { [key: string]: string };
 };
@@ -19,7 +21,13 @@ export default function PostListPage({ searchParams }: PostListPageProps) {
   const orderBy = searchParams?.[ORDER_BY_SEARCH_PARAM] || "";
   return (
     <div className={"PostListPage"}>
-      <PageHeader button={<button>New Blog Post</button>}>
+      <PageHeader
+        button={
+          <AppLink className={"Button"} href={"/add"}>
+            New Blog Post
+          </AppLink>
+        }
+      >
         Next.JS Blog Example
       </PageHeader>
       <div className={"Page"}>

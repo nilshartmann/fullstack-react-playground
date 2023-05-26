@@ -1,17 +1,24 @@
-import { IComment } from "@/types";
+import { IComment, ICommentResponse } from "@/types";
+import MetaFetchData from "@/app/components/MetaFetchData";
+import { componentLog } from "@/app/component-log";
 
 type PostCommentsProps = {
-  comments: Promise<IComment[]>;
+  commentsResponse: Promise<ICommentResponse>;
 };
 
-export default async function PostComments({ comments }: PostCommentsProps) {
-  const _comments = await comments;
+export default async function PostComments({
+  commentsResponse,
+}: PostCommentsProps) {
+  componentLog("PostComments");
+  const { data: comments, meta } = await commentsResponse;
   return (
-    <div className={"Container"}>
-      <h1>Comments</h1>
-      {_comments.map((comment) => (
-        <p key={comment.id}>{comment.comment}</p>
-      ))}
-    </div>
+    <MetaFetchData meta={meta}>
+      <div className={"Container"}>
+        <h1>Comments</h1>
+        {comments.map((comment) => (
+          <p key={comment.id}>{comment.comment}</p>
+        ))}
+      </div>
+    </MetaFetchData>
   );
 }

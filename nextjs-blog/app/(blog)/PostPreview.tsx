@@ -2,6 +2,7 @@ import { IBlogPost } from "@/types";
 import { dateTimeString } from "@/app/components/date-formatter";
 import Link from "next/link";
 import { CommentEditor } from "@/app/(blog)/CommentEditor";
+import AppLink from "@/app/components/AppLink";
 
 function postAbstract({ body }: IBlogPost) {
   return body.length > 150 ? body.substring(0, 150) + "..." : body;
@@ -14,9 +15,9 @@ export default function PostPreview({ post }: PostPreviewProps) {
   return (
     <article className="Container">
       <p className="Date">{dateTimeString(post.date)}</p>
-      <Link href={`/post/${post.id}`}>
+      <AppLink href={`/post/${post.id}`} prefetch={false}>
         <h1>{post.title}</h1>
-      </Link>
+      </AppLink>
       <div className={"PreviewAbstract"}>
         <p>{postAbstract(post)}</p>
       </div>

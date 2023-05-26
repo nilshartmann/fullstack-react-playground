@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "backend": "cd ../blog-backend && pnpm start",
+    "backend": "cd ../blog-backend && pnpm dev",
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 8080",

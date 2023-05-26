@@ -12,14 +12,20 @@ import Post from "@/app/(blog)/post/[postId]/Post";
 import PostComments from "@/app/(blog)/post/[postId]/PostComments";
 import MetaFetchData from "@/app/components/MetaFetchData";
 import { blogFetch } from "@/app/blog-fetch";
+import { componentLog } from "@/app/component-log";
 
-export async function generateStaticParams() {
-  return [{ postId: "1" }, { postId: "2" }];
-}
+// export async function generateStaticParams() {
+//   return [{ postId: "1" }, { postId: "2" }];
+// }
 
 async function fetchPost(postId: string): Promise<IBlogPostResponse> {
   const response = await blogFetch(
-    apiUrl(`/posts/${postId}`, { slow: delayPostPage })
+    apiUrl(`/posts/${postId}`, { slow: delayPostPage }),
+    {
+      next: {
+        tags: [`/posts/${postId}`],
+      },
+    }
   );
   const posts = await response.json();
 
@@ -27,9 +33,15 @@ async function fetchPost(postId: string): Promise<IBlogPostResponse> {
 }
 
 async function fetchComments(postId: string): Promise<IComment[]> {
-  const response = await blogFetch(apiUrl(`/posts/${postId}/comments`, {}));
+  const response = await blogFetch(
+    apiUrl(`/posts/${postId}/comments`, { slow: delayPostComments }),
+    {
+      next: {
+        tags: [`/posts/${postId}/comments`],
+      },
+    }
+  );
   const comments = await response.json();
-  console.log("COMMENTS FIELDS", Object.keys(comments));
 
   return comments;
 }
@@ -41,8 +53,9 @@ type PostPageProps = {
   params: PostPageParams;
 };
 export default async function PostPage({ params }: PostPageProps) {
+  componentLog("PostPage", { params });
   const postPromise = fetchPost(params.postId);
-  // const comments = fetchComments(params.postId);
+  const comments = fetchComments(params.postId);
 
   // https://beta.nextjs.org/docs/data-fetching/fetching#parallel-data-fetching
   // We want to render posts as soon as we have them.
@@ -55,9 +68,16 @@ export default async function PostPage({ params }: PostPageProps) {
       <MetaFetchData meta={post.meta}>
         <Post post={post.data} />
       </MetaFetchData>
+
+      <Suspense
+        fallback={<LoadingIndicator>Loading Comments...</LoadingIndicator>}
+      >
+        {/* @ts-expect-error Server Component */}
+        <PostComments commentsResponse={comments} />
+      </Suspense>
     </>
   );
 }
 
-// {/* @ts-expect-error Server Component */}
-// {/*<PostComments comments={comments} />*/}
+//
+// {/**/}

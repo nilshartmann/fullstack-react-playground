@@ -31,6 +31,21 @@ export default function createDataStore() {
   });
 
   return {
+    insertPost({ title, body }: { title: string; body: string }): IBlogPost {
+      const id = String(Object.keys(posts).length + 1);
+      const data: BlogPostData = {
+        id,
+        title,
+        body,
+        date: new Date().toISOString(),
+        tags: [],
+        userId: "U2",
+      };
+      posts[id] = data;
+
+      return toBlogPost(data);
+    },
+
     getAllPosts(orderByFn = orderByDateNewestFirst): IBlogPost[] {
       const allPosts: IBlogPost[] = Object.values(posts).map(toBlogPost);
       allPosts.sort(orderByFn);
@@ -51,6 +66,24 @@ export default function createDataStore() {
       }
 
       return commentsForPost(postId);
+    },
+
+    addPostComment(postId: string, comment: string): number | null {
+      if (!posts[postId]) {
+        return null;
+      }
+
+      const id = comments.length + 1;
+
+      const newComment: IComment = {
+        id,
+        comment,
+        postId,
+      };
+
+      comments.push(newComment);
+
+      return id;
     },
 
     getTags(): Record<string, number> {

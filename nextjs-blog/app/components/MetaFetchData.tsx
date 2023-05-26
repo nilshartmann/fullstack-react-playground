@@ -1,5 +1,6 @@
 import { IResponseMetaData } from "@/types";
 import { timeString } from "@/app/components/date-formatter";
+import { enableMetadataView } from "@/app/demo-config";
 
 export default function MetaFetchData({
   meta,
@@ -8,6 +9,10 @@ export default function MetaFetchData({
   meta: IResponseMetaData;
   children?: React.ReactNode;
 }) {
+  if (!enableMetadataView) {
+    return <>{children}</>;
+  }
+
   const sentAt = meta.sentAt ? `sent at ${timeString(meta.sentAt)} and` : "";
 
   return (

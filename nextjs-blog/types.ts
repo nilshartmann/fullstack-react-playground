@@ -19,6 +19,11 @@ export type IBlogPostResponse = {
   meta: IResponseMetaData;
 };
 
+export type INewBlogPost = {
+  title: string;
+  body: string;
+};
+
 export type IBlogPost = {
   id: string;
   userId: string;
@@ -36,6 +41,11 @@ export type IComment = {
   id: string;
   postId: string;
   comment: string;
+};
+
+export type ICommentResponse = {
+  data: IComment[];
+  meta: IResponseMetaData;
 };
 
 export const ORDER_BY_SEARCH_PARAM = "order_by";

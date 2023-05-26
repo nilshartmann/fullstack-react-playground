@@ -10,7 +10,12 @@ async function fetchPosts(orderBy: PostsOrderBy): Promise<IPostsResponse> {
   const response = await blogFetch(
     apiUrl("/posts", { order_by: orderBy, slow: delayPostList }),
     // https://stackoverflow.com/a/43725133/6134498
-    { mode: "cors" }
+    {
+      mode: "cors",
+      next: {
+        tags: ["/posts"],
+      },
+    }
   );
 
   // looking at the request-id HTTP header,
