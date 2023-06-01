@@ -22,7 +22,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
         <p>{postAbstract(post)}</p>
       </div>
       <NewestComment post={post} />
-      <CommentEditor post={post} />
+      {/*<CommentEditor post={post} />*/}
     </article>
   );
 }
