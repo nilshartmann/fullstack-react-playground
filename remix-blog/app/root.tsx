@@ -1,5 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, V2_MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -9,8 +9,20 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import styles from "./globals.css";
+
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  ...(cssBundleHref
+    ? [
+        { rel: "stylesheet", href: styles },
+        { rel: "stylesheet", href: cssBundleHref },
+      ]
+    : [{ rel: "stylesheet", href: styles }]),
+];
+
+export const meta: V2_MetaFunction = () => [
+  { title: "Blog Example!" },
+  { description: "Blog Example App!" },
 ];
 
 export default function App() {
@@ -19,11 +31,16 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="description" />
         <Meta />
         <Links />
       </head>
       <body>
-        <Outlet />
+        <div className={"Root"}>
+          <div className={"App"}>
+            <Outlet />
+          </div>
+        </div>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
