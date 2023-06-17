@@ -3,7 +3,7 @@ import ButtonBar from "@/app/components/ButtonBar";
 import PostList from "@/app/(blog)/PostList";
 import TagCloud from "@/app/(blog)/TagCloud";
 import OrderByButton from "@/app/(blog)/OrderByButton";
-import { ORDER_BY_SEARCH_PARAM } from "@/types";
+import { ORDER_BY_SEARCH_PARAM, PostsOrderBy } from "@/types";
 import timeString from "@/app/components/time-string";
 import { componentLog } from "@/app/component-log";
 import Link from "next/link";
@@ -18,7 +18,8 @@ type PostListPageProps = {
 
 export default function PostListPage({ searchParams }: PostListPageProps) {
   componentLog("PostListPage", { searchParams });
-  const orderBy = searchParams?.[ORDER_BY_SEARCH_PARAM] || "";
+  const orderBy =
+    (searchParams?.[ORDER_BY_SEARCH_PARAM] as PostsOrderBy) || "date_desc";
   return (
     <div className={"PostListPage"}>
       <PageHeader
@@ -36,7 +37,7 @@ export default function PostListPage({ searchParams }: PostListPageProps) {
             <OrderByButton orderBy={"date_desc"} />
             <OrderByButton orderBy={"date_asc"} />
           </ButtonBar>
-          {/* @ts-expect-error https://nextjs.org/docs/app/building-your-application/configuring/typescript#async-server-component-typescript-error */}
+          {/* @ts-expect-error Server Component https://nextjs.org/docs/app/building-your-application/configuring/typescript#async-server-component-typescript-error */}
           <PostList orderBy={orderBy} />
         </div>
         <aside className={"Sidebar"}>
