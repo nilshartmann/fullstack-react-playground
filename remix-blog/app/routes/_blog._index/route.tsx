@@ -43,11 +43,6 @@ export async function loader({ request }: LoaderArgs): Promise<BlogRouteData> {
       }
     );
 
-    // looking at the request-id HTTP header,
-    // it becomes obvious that Next caches or request
-
-    // it still re-renders PostList(Page), because PostPage
-    // is dynamic component, as it uses Query Params
     componentLog("fetchPosts", "response received", {
       requestId: response.headers.get("x-blog-api-request-id"),
     });
@@ -66,10 +61,6 @@ export async function loader({ request }: LoaderArgs): Promise<BlogRouteData> {
 type PostListPageProps = {
   searchParams?: { [key: string]: string };
 };
-
-// https://nextjs.org/docs/app/building-your-application/data-fetching/caching#segment-level-caching
-// revalidate every 2 seconds
-// export const revalidate = 2;
 
 export default function PostListPage({ searchParams }: PostListPageProps) {
   componentLog("PostListPage", { searchParams });
