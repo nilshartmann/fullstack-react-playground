@@ -2,8 +2,9 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
+    "backend": "cd ../blog-backend && pnpm dev",
     "build": "remix build",
-    "dev": "remix dev",
+    "dev": "PORT=3100 remix dev",
     "start": "remix-serve build",
     "typecheck": "tsc"
   },
@@ -12,9 +13,14 @@
     "@remix-run/node": "^1.17.1",
     "@remix-run/react": "^1.17.1",
     "@remix-run/serve": "^1.17.1",
+    "@types/marked": "^5.0.0",
+    "chalk": "^5.2.0",
+    "format-duration": "^3.0.2",
     "isbot": "^3.6.8",
+    "marked": "^5.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tag-cloud": "^2.0.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.17.1",
@@ -22,6 +28,7 @@
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "eslint": "^8.38.0",
+    "prettier": "^2.8.8",
     "typescript": "^5.0.4"
   },
   "engines": {
