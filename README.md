@@ -14,6 +14,9 @@ This repo contains two React applications, one implemented in Next.js, one in Re
 
 - One backend (serves a simple REST-like API)
   - `blog-backend`
+  
+- RSC step-by-step training/demo playground
+  - `rsc-step-by-step` (with Next.js app router)
 
 
 ## Run the examples

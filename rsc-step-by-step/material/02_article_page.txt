@@ -1,0 +1,18 @@
+// [articleId]/page.tsx
+
+type ArticlePageProps = {
+  params: { articleId: string };
+};
+
+// Schritte:
+// 1. ArticleCard (fetchArticleSlow)
+// 2. CommentsList (fetchCommentsSlow)
+// 3. Suspense
+
+export default function ArticlePage({ params }: ArticlePageProps) {
+  return (
+    <div>
+      <p>Todo: show article with id {params.articleId}</p>
+    </div>
+  );
+}
