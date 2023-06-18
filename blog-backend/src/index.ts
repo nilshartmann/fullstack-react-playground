@@ -70,16 +70,24 @@ app.post("/posts", (req, res) => {
     return res.status(400).json({ error: "Post must be defined" });
   }
 
+  const errors: Record<string, string> = {};
+
   if (!post.title) {
-    return res
-      .status(400)
-      .json({ error: "post.title must be defined and not empty" });
+    errors.title = "title must be defined and not empty";
+  } else if (post.title.length < 3) {
+    errors.title = "title must have at least three chars";
   }
 
   if (!post.body) {
-    return res
-      .status(400)
-      .json({ error: "post.body must be defined and not empty" });
+    errors.body = "body must be defined and not empty";
+  } else if (post.body.length < 3) {
+    errors.body = "body must have at least three chars";
+  }
+
+  console.log("ERRORS", errors);
+
+  if (Object.keys(errors).length) {
+    return res.status(400).json({ errors });
   }
 
   const newPost = dataStore.insertPost(post);

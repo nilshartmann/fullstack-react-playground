@@ -1,10 +1,6 @@
 import { componentLog } from "~/component-log";
-import {
-  IPostsResponse,
-  ITags,
-  ORDER_BY_SEARCH_PARAM,
-  PostsOrderBy,
-} from "~/types";
+import type { IPostsResponse, ITags, PostsOrderBy } from "~/types";
+import { ORDER_BY_SEARCH_PARAM } from "~/types";
 import PageHeader from "~/components/PageHeader";
 import AppLink from "~/components/AppLink";
 import ButtonBar from "~/components/ButtonBar";
@@ -52,8 +48,6 @@ export async function loader({ request }: LoaderArgs): Promise<BlogRouteData> {
 
   const [tags, posts] = await Promise.all([loadTagCloud(), loadPosts()]);
   const result = { tags, posts };
-
-  componentLog("BlogRoute loader", result);
 
   return result;
 }
