@@ -1,6 +1,9 @@
 # Serverside React Example
 
-This repo contains two applications, one implemented in Next.js, one in Remix to demonstrate serverside / fullstack React features.
+This repo contains two React applications, one implemented in Next.js, one in Remix to demonstrate serverside / fullstack React features.
+
+
+![Screenshot of the example application](screenshot-blog.png)
 
 
 ## Contents
@@ -24,3 +27,11 @@ This repo contains two applications, one implemented in Next.js, one in Remix to
   - `nextjs-blog` runs on http://localhost:3100
   - `remix-blog` runs on http://localhost:3000
 - or create prod build (see package.json in both folders)
+
+## Feedback
+
+If you have feedback, questions or comments, please let me know:
+ - You can open an issue in this repository or
+ - You can reach me on [Twitter (@nilshartmann)](https://twitter.com/nilshartmann)
+ - or find more contact information on my [homepage (german)](https://nilshartmann.net)
+
