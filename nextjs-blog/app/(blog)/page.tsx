@@ -37,11 +37,9 @@ export default function PostListPage({ searchParams }: PostListPageProps) {
             <OrderByButton orderBy={"date_desc"} />
             <OrderByButton orderBy={"date_asc"} />
           </ButtonBar>
-          {/* @ts-expect-error Server Component https://nextjs.org/docs/app/building-your-application/configuring/typescript#async-server-component-typescript-error */}
           <PostList orderBy={orderBy} />
         </div>
         <aside className={"Sidebar"}>
-          {/* @ts-expect-error Server Component https://nextjs.org/docs/app/building-your-application/configuring/typescript#async-server-component-typescript-error */}
           <TagCloud />
         </aside>
       </div>

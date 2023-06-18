@@ -1,4 +1,9 @@
-import { IBlogPost, IBlogPostResponse, IComment } from "@/types";
+import {
+  IBlogPost,
+  IBlogPostResponse,
+  IComment,
+  ICommentResponse,
+} from "@/types";
 import { apiUrl } from "@/app/config";
 import {
   delayPostComments,
@@ -32,7 +37,7 @@ async function fetchPost(postId: string): Promise<IBlogPostResponse> {
   return posts;
 }
 
-async function fetchComments(postId: string): Promise<IComment[]> {
+async function fetchComments(postId: string): Promise<ICommentResponse> {
   const response = await blogFetch(
     apiUrl(`/posts/${postId}/comments`, { slow: delayPostComments }),
     {
@@ -72,7 +77,6 @@ export default async function PostPage({ params }: PostPageProps) {
       <Suspense
         fallback={<LoadingIndicator>Loading Comments...</LoadingIndicator>}
       >
-        {/* @ts-expect-error Server Component */}
         <PostComments commentsResponse={comments} />
       </Suspense>
     </>

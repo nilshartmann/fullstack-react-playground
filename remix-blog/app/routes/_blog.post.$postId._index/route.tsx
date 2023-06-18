@@ -1,7 +1,7 @@
 import { LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { blogFetch } from "~/blog-fetch";
-import { IBlogPostResponse, IComment, ICommentResponse } from "~/types";
+import type { IBlogPostResponse, ICommentResponse } from "~/types";
 import { apiUrl } from "~/config";
 import { delayPostComments, delayPostPage } from "~/demo-config";
 import LoadingIndicator from "~/components/LoadingIndicator";

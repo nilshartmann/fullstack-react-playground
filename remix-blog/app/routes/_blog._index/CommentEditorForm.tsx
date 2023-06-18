@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useFetcher } from "@remix-run/react";
-import { AddCommentResult } from "~/routes/_blog.post.$postId.comments._index/route";
+import type { AddCommentResult } from "~/routes/_blog.post.$postId.comments._index/route";
 
 // Requirements:
 //   - disable submit button as long as comment-Field is empty
