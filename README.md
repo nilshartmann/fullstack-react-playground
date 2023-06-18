@@ -1,9 +1,26 @@
 # Serverside React Example
 
+This repo contains two applications, one implemented in Next.js, one in Remix to demonstrate serverside / fullstack React features.
+
+
+## Contents
+
 - Two projects implemented in Next.JS and remix
+  - `nextjs-blog`: Variant with Next.js App Router and React Server Components
+  - `remix-blog`: almost same application but with Remix (folder v2)
+
 - One backend (serves a simple REST-like API)
+  - `blog-backend`
 
 
-## Opening in Webstorm
+## Run the examples
 
-- Open each folder (nextjs / remix) individually in webstorm / vscode
+- Before running one of the apps, make sure `blog-backend` runs:
+  - `cd blog-backend && pnpm install && pnpm start`
+
+- Best open each folder (`nextjs-blog` / `remix-blog` ) individually in webstorm / vscode
+
+- Run either in dev mode:
+  - `nextjs-blog` runs on http://localhost:3100
+  - `remix-blog` runs on http://localhost:3000
+- or create prod build (see package.json in both folders)
