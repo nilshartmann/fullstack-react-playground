@@ -3,17 +3,6 @@ import { json, redirect } from "@remix-run/node";
 import { delaySavePost } from "~/demo-config";
 import { blogFetch } from "~/blog-fetch";
 import { apiUrl } from "~/config";
-import Post from "~/routes/_blog.post.$postId._index/Post";
-import {
-  Form,
-  useNavigate,
-  useNavigation,
-  useActionData,
-} from "@remix-run/react";
-import { useState } from "react";
-import PageHeader from "~/components/PageHeader";
-import Message from "~/components/Message";
-import LoadingIndicator from "~/components/LoadingIndicator";
 import { componentLog } from "~/component-log";
 import PostEditor from "~/routes/_blog.add/PostEditor";
 

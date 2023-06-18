@@ -130,7 +130,6 @@ app.post("/posts/:id/comments", (req, res) => {
   const postId = req.params.id;
   const { comment } = req.body;
   console.log("    add comment", { postId, comment });
-  const commentId = dataStore.addPostComment(postId, comment);
 
   if (!comment) {
     return res.status(400).json({ error: `No comment set` });
@@ -141,6 +140,8 @@ app.post("/posts/:id/comments", (req, res) => {
       .status(400)
       .json({ error: `Comment too short. Please use at least three chars.` });
   }
+
+  const commentId = dataStore.addPostComment(postId, comment);
 
   if (!commentId) {
     return res.status(404).json({ error: `Post '${req.params.id}' not found` });

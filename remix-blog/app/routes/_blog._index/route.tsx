@@ -12,6 +12,8 @@ import type { LoaderArgs } from "@remix-run/node";
 import { delayPostList } from "~/demo-config";
 import PostList from "~/routes/_blog._index/PostList";
 import OrderByButton from "~/routes/_blog._index/OrderByButton";
+import { ActionArgs, json, TypedResponse } from "@remix-run/node";
+import { AddCommentResult } from "~/routes/_blog.post.$postId.comments._index/route";
 
 type BlogRouteData = {
   tags: ITags[];
