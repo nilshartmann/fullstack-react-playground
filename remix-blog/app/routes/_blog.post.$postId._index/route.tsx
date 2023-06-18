@@ -1,5 +1,6 @@
-import { LoaderArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import type { LoaderArgs } from "@remix-run/node";
+import { defer } from "@remix-run/node";
+import { Await, useLoaderData } from "@remix-run/react";
 import { blogFetch } from "~/blog-fetch";
 import type { IBlogPostResponse, ICommentResponse } from "~/types";
 import { apiUrl } from "~/config";
@@ -29,21 +30,13 @@ async function fetchComments(postId: string): Promise<ICommentResponse> {
 }
 
 export async function loader({ params }: LoaderArgs) {
-  console.log("PARAMS", params);
   const postId = params.postId;
   if (!postId) {
     // todo... but should not happen anyway...
-    throw new Error("No post id in search params!");
+    throw new Error("No postId in url!");
   }
 
-  const [post, comments] = await Promise.all([
-    fetchPost(postId),
-    fetchComments(postId),
-  ]);
-
-  // todo defer!
-
-  return { post, comments };
+  return defer({ post: fetchPost(postId), comments: fetchComments(postId) });
 }
 
 export default function PostPage() {
@@ -51,9 +44,19 @@ export default function PostPage() {
 
   return (
     <>
-      <MetaFetchData meta={data.post.meta}>
-        <Post post={data.post.data} />
-      </MetaFetchData>
+      <Suspense
+        fallback={<LoadingIndicator>Loading Articles...</LoadingIndicator>}
+      >
+        <Await resolve={data.post}>
+          {(post) => {
+            return (
+              <MetaFetchData meta={post.meta}>
+                <Post post={post.data} />
+              </MetaFetchData>
+            );
+          }}
+        </Await>
+      </Suspense>
 
       <Suspense
         fallback={<LoadingIndicator>Loading Comments...</LoadingIndicator>}
